@@ -2,6 +2,14 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
+	"net"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
+
 	"github.com/asdine/storm"
 	"github.com/filebrowser/filebrowser"
 	"github.com/filebrowser/filebrowser/bolt"
@@ -10,14 +18,6 @@ import (
 	"github.com/hacdias/fileutils"
 	flag "github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"gopkg.in/natefinch/lumberjack.v2"
-	"io/ioutil"
-	"log"
-	"net"
-	"net/http"
-	"os"
-	"path/filepath"
-	"strings"
 )
 
 var (
@@ -121,6 +121,9 @@ func setupViper() {
 
 	viper.SetConfigName("filebrowser")
 	viper.AddConfigPath(".")
+
+	viper.SetEnvPrefix("FB")
+	viper.AutomaticEnv()
 }
 
 func printVersion() {
